@@ -7,32 +7,32 @@ class KeyboardListener extends Component {
 	componentWillMount() {
 		if (this.props.onWillShow) {
 			this.keyboardWillShowListener = Keyboard.addListener(
-				'keyboardWillShow', () => this.props.onWillShow(),
+				'keyboardWillShow', this.props.onWillShow,
 			);
 		}
 		if (this.props.onWillHide) {
 			this.keyboardWillHideListener = Keyboard.addListener(
-				'keyboardWillHide', () => this.props.onWillHide(),
+				'keyboardWillHide', this.props.onWillHide,
 			);
 		}
 		if (this.props.onDidShow) {
 			this.keyboardDidShowListener = Keyboard.addListener(
-				'keyboardDidShow', () => this.props.onDidShow(),
+				'keyboardDidShow', this.props.onDidShow,
 			);
 		}
 		if (this.props.onDidHide) {
 			this.keyboardDidHideListener = Keyboard.addListener(
-				'keyboardDidHide', () => this.props.onDidHide(),
+				'keyboardDidHide', this.props.onDidHide,
 			);
 		}
 		if (this.props.onWillChangeFrame) {
 			this.keyboardWillChangeFrameListener = Keyboard.addListener(
-				'keyboardWillChangeFrame', () => this.props.onWillChangeFrame(),
+				'keyboardWillChangeFrame', this.props.onWillChangeFrame,
 			);
 		}
 		if (this.props.onDidChangeFrame) {
 			this.keyboardDidChangeFrameListener = Keyboard.addListener(
-				'keyboardDidChangeFrame', () => this.props.onDidChangeFrame(),
+				'keyboardDidChangeFrame', this.props.onDidChangeFrame,
 			);
 		}
 	}
