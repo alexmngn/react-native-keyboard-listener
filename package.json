@@ -31,5 +31,8 @@
     "index.js",
     "package.json",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  }
 }
