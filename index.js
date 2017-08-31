@@ -4,78 +4,35 @@ import {
 	Keyboard,
 } from 'react-native';
 
+const events = ['WillShow', 'WillHide', 'DidShow', 'DidHide', 'WillChangeFrame', 'DidChangeFrame'];
+
 class KeyboardListener extends Component {
+
+	listeners = []
+
+	static propTypes = Object.keys(events).reduce((prev, event) => ({
+		...prev,
+		...{ [`on${event}`]: PropTypes.func },
+	}), {})
+
 	componentWillMount() {
-		if (this.props.onWillShow) {
-			this.keyboardWillShowListener = Keyboard.addListener(
-				'keyboardWillShow', () => this.props.onWillShow(),
-			);
-		}
-		if (this.props.onWillHide) {
-			this.keyboardWillHideListener = Keyboard.addListener(
-				'keyboardWillHide', () => this.props.onWillHide(),
-			);
-		}
-		if (this.props.onDidShow) {
-			this.keyboardDidShowListener = Keyboard.addListener(
-				'keyboardDidShow', () => this.props.onDidShow(),
-			);
-		}
-		if (this.props.onDidHide) {
-			this.keyboardDidHideListener = Keyboard.addListener(
-				'keyboardDidHide', () => this.props.onDidHide(),
-			);
-		}
-		if (this.props.onWillChangeFrame) {
-			this.keyboardWillChangeFrameListener = Keyboard.addListener(
-				'keyboardWillChangeFrame', () => this.props.onWillChangeFrame(),
-			);
-		}
-		if (this.props.onDidChangeFrame) {
-			this.keyboardDidChangeFrameListener = Keyboard.addListener(
-				'keyboardDidChangeFrame', () => this.props.onDidChangeFrame(),
-			);
-		}
+		events.forEach(event => {
+			const keyProp = `on${event}`;
+			if (this.props[keyProp]) {
+				this.listeners.push(Keyboard.addListener(
+					`keyboard${event}`, this.props[keyProp],
+				));
+			}
+		});
 	}
 	componentWillUnmount() {
-		if (this.keyboardWillShowListener) {
-			this.keyboardWillShowListener.remove();
-			this.keyboardWillShowListener = null;
-		}
-		if (this.keyboardWillHideListener) {
-			this.keyboardWillHideListener.remove();
-			this.keyboardWillHideListener = null;
-		}
-		if (this.keyboardDidShowListener) {
-			this.keyboardDidShowListener.remove();
-			this.keyboardDidShowListener = null;
-		}
-		if (this.keyboardDidHideListener) {
-			this.keyboardDidHideListener.remove();
-			this.keyboardDidHideListener = null;
-		}
-		if (this.keyboardWillChangeFrameListener) {
-			this.keyboardWillChangeFrameListener.remove();
-			this.keyboardWillChangeFrameListener = null;
-		}
-		if (this.keyboardDidChangeFrameListener) {
-			this.keyboardDidChangeFrameListener.remove();
-			this.keyboardDidChangeFrameListener = null;
-		}
+		this.listeners.forEach(listener => listener.remove());
+		this.listener = [];
 	}
 
 	render() {
 		return false;
 	}
 }
-
-KeyboardListener.propTypes = {
-	onWillShow: PropTypes.func,
-	onWillHide: PropTypes.func,
-	onDidShow: PropTypes.func,
-	onDidHide: PropTypes.func,
-	onWillChangeFrame: PropTypes.func,
-	onDidChangeFrame: PropTypes.func,
-};
 
 export default KeyboardListener;
