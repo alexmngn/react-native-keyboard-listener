@@ -27,15 +27,7 @@ import {
 
 const events = ['WillShow', 'WillHide', 'DidShow', 'DidHide', 'WillChangeFrame', 'DidChangeFrame'];
 
-/** 
- * Remodled version of 
- * react-native-keyboard-listener
- * by @github alexmngn. This updated version is compatible with
- * the latest React-Native version and confirms to work as expected.
- * 
- * @contributer: Ashish Bailkeri -- Remodler NOT original creator
- */
-
+/* Remodled version */
 export default function KeyboardListener(props) {
     var listeners = []
 
